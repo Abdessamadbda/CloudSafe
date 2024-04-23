@@ -8,12 +8,42 @@ import File from "./File"
 import Navbar from "./Navbar"
 import FolderBreadcrumbs from "./FolderBreadcrumbs"
 import { useParams, useLocation } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDownload, faShare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { storage, database } from "../../firebase";
 
 export default function Dashboard() {
   const { folderId } = useParams()
   const { state = {} } = useLocation()
   const { folder, childFolders, childFiles } = useFolder(folderId, state.folder)
+  async function handleDownload(file, fileId, fileName) {
+    try {
+      const url = await storage.refFromURL(`${file.url}`).getDownloadURL();
+      window.open(url, "_blank");
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    }
+  }
 
+  async function handleShare(file,fileId) {
+    try {
+      const url = await storage.refFromURL(`${file.url}`).getDownloadURL();
+      // Implement logic to generate shareable link (e.g., copy to clipboard)
+      // eslint-disable-next-line no-restricted-globals
+      alert(`Shareable link: ${url}`);
+    } catch (error) {
+      console.error("Error sharing file:", error);
+    }
+  }
+
+  async function handleDelete(file,fileId, fileName) {
+    try {
+      await database.files.doc(fileId).delete();
+      await storage.ref(`${file.url}`).delete();
+    } catch (error) {
+      console.error("Error deleting file:", error);
+    }
+  }
   return (
     <>
       <Navbar />
@@ -45,8 +75,26 @@ export default function Dashboard() {
                 style={{ maxWidth: "250px" }}
                 className="p-2"
               >
-                <File file={childFile} />
+<File file={childFile} key={childFile.id} />
+                <div className="file-actions">
+        <FontAwesomeIcon
+          icon={faDownload}
+          onClick={() => handleDownload(childFile,childFile.id, childFile.name)}
+          className="action-icon"
+        />
+        <FontAwesomeIcon
+          icon={faShare}
+          onClick={() => handleShare(childFile,childFile.id)}
+          className="action-icon"
+        />
+        <FontAwesomeIcon
+          icon={faTrash}
+          onClick={() => handleDelete(childFile,childFile.id, childFile.name)}
+          className="action-icon"
+        />
+      </div>
               </div>
+              
             ))}
           </div>
         )}
