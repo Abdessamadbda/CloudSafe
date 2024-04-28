@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
+import {getAuth, FacebookAuthProvider, GoogleAuthProvider} from 'firebase/auth';
 
 const app = firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -24,4 +25,8 @@ export const database = {
 };
 export const storage = app.storage();
 export const auth = app.auth();
+export const auth1 = getAuth(app);
+
+export const provider = new GoogleAuthProvider();
+export const facebookProvider = new FacebookAuthProvider();
 export default app;

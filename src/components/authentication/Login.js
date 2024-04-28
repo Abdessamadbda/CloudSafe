@@ -3,15 +3,26 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-
+import { signInWithPopup } from "firebase/auth"
+import {auth,auth1,facebookProvider} from "../../firebase"
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
   const { login } = useAuth()
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const history = useHistory( )
 
+   async function handleFacebookLogin() {
+    signInWithPopup(auth1, facebookProvider).then((result) => {
+      setError("");
+      setLoading(true);
+      login(result.user.email, result.user.password);
+      history.push("/");
+    }).catch((error) => {
+        setError("Failed to log in");
+      });
+  }
   async function handleSubmit(e) {
     e.preventDefault()
 
@@ -54,6 +65,10 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
+      <button className="" onClick={handleFacebookLogin}>
+        Sign In With Facebook
+
+      </button>
     </CenteredContainer>
   )
 }
