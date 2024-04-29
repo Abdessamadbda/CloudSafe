@@ -5,6 +5,8 @@ import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
 import { signInWithPopup,browserPopupRedirectResolver } from "firebase/auth"
 import {auth1,facebookProvider,provider} from "../../firebase"
+import { FaFacebook, FaGoogle } from "react-icons/fa"; 
+
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -74,14 +76,19 @@ export default function Login() {
       <div className="w-100 text-center mt-2">
         Need an account? <Link to="/signup">Sign Up</Link>
       </div>
-      <button className="" onClick={handleFacebookLogin}>
-        Sign In With Facebook
-
-      </button>
-      <button className="" onClick={handleGoogleLogin}>
-        Sign In With Google
-
-      </button>
+      <Button
+        style={{ backgroundColor: "rgba(11, 127, 171)" ,marginTop: "20px",alignItems: "center",width: "100%"}}
+        onClick={handleFacebookLogin}
+      >
+        <FaFacebook className="mr-2" /> Sign In With Facebook
+      </Button>
+      <br />
+      <Button
+        style={{ backgroundColor: "#DB4437", marginTop: "10px",alignItems: "center",width: "100%"}}
+        onClick={handleGoogleLogin}
+      >
+        <FaGoogle className="mr-2" /> Sign In With Google
+      </Button>
     </CenteredContainer>
   )
 }
