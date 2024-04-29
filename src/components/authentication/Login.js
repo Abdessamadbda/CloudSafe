@@ -3,8 +3,8 @@ import { Form, Button, Card, Alert } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
 import CenteredContainer from "./CenteredContainer"
-import { signInWithPopup } from "firebase/auth"
-import {auth,auth1,facebookProvider} from "../../firebase"
+import { signInWithPopup,browserPopupRedirectResolver } from "firebase/auth"
+import {auth1,facebookProvider,provider} from "../../firebase"
 export default function Login() {
   const emailRef = useRef()
   const passwordRef = useRef()
@@ -14,10 +14,19 @@ export default function Login() {
   const history = useHistory( )
 
    async function handleFacebookLogin() {
-    signInWithPopup(auth1, facebookProvider).then((result) => {
+    signInWithPopup(auth1, facebookProvider,browserPopupRedirectResolver).then((result) => {
       setError("");
       setLoading(true);
-      login(result.user.email, result.user.password);
+      history.push("/");
+    }).catch((error) => {
+        setError("Failed to log in");
+      });
+  }
+  
+  async function handleGoogleLogin() {
+    signInWithPopup(auth1, provider,browserPopupRedirectResolver).then((result) => {
+      setError("");
+      setLoading(true);
       history.push("/");
     }).catch((error) => {
         setError("Failed to log in");
@@ -67,6 +76,10 @@ export default function Login() {
       </div>
       <button className="" onClick={handleFacebookLogin}>
         Sign In With Facebook
+
+      </button>
+      <button className="" onClick={handleGoogleLogin}>
+        Sign In With Google
 
       </button>
     </CenteredContainer>
