@@ -18,9 +18,9 @@ export default function Dashboard() {
   return (
     <>
       <Navbar />
-      <Container fluid>
+      <Container  >
         <div className="d-flex align-items-center">
-          <FolderBreadcrumbs currentFolder={folder} />
+          <FolderBreadcrumbs  currentFolder={folder} />
           <AddFileButton currentFolder={folder} />
           <AddFolderButton currentFolder={folder} />
         </div>

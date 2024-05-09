@@ -6,17 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function NavbarComponent() {
   return (
-    <Navbar bg="light" expand="sm">
+    <Navbar style={{ backgroundColor: "#e3f2fd" }} expand="sm"> {/* Set background color using inline style */}
       <Navbar.Brand as={Link} to="/">
         <img src="public/cloudsafe.png" alt=""/>
         CloudSafe
       </Navbar.Brand>
       <Nav className="ml-auto"> {/* Align items to the right */}
         <Nav.Link as={Link} to="/user">
-        <FontAwesomeIcon
-      icon={faUser}
-      className="ml-4 mr-2 cursor-pointer"
-    />
+          <FontAwesomeIcon
+            icon={faUser}
+            className="ml-4 mr-2 cursor-pointer"
+          />
         </Nav.Link>
       </Nav>
     </Navbar>

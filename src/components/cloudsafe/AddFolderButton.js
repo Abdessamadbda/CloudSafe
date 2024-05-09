@@ -42,7 +42,7 @@ export default function AddFolderButton({ currentFolder }) {
 
   return (
     <>
-      <Button onClick={openModal} variant="outline-success" size="sm">
+      <Button onClick={openModal} variant="outline-primary" size="md"> {/* Changed size from "sm" to "lg" */}
         <FontAwesomeIcon icon={faFolderPlus} />
       </Button>
       <Modal show={open} onHide={closeModal}>
@@ -59,10 +59,10 @@ export default function AddFolderButton({ currentFolder }) {
             </Form.Group>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={closeModal}>
+            <Button variant="secondary" onClick={closeModal} size="lg"> {/* Changed size from "sm" to "lg" */}
               Close
             </Button>
-            <Button variant="success" type="submit">
+            <Button variant="success" type="submit" size="lg"> {/* Changed size from "sm" to "lg" */}
               Add Folder
             </Button>
           </Modal.Footer>
@@ -70,4 +70,5 @@ export default function AddFolderButton({ currentFolder }) {
       </Modal>
     </>
   )
+  
 }
