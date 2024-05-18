@@ -44,14 +44,14 @@ export default function File({ file }) {
     try {
       await database.files.doc(fileId).delete();
       await storage.ref(`${file.url}`).delete();
-      setShowConfirmationModal(false); // Close confirmation modal after deletion
+      setShowConfirmationModal(false);
     } catch (error) {
       console.error("Error deleting file:", error);
     }
   }
 
   return (
-    <div className="text-truncate w-100 border rounded d-block p-2">
+    <div className="text-truncate w-100 border rounded d-block p-2" >
       <a href={file.url} target="_blank">
         {getFileExtension(file.name) === "jpg" || getFileExtension(file.name) === "png" ? (
           <FontAwesomeIcon icon={faImage} className="file-icon" />

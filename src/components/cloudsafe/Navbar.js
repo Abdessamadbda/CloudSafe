@@ -8,7 +8,9 @@ export default function NavbarComponent() {
   return (
     <Navbar style={{ backgroundColor: "#e3f2fd" }} expand="sm"> {/* Set background color using inline style */}
       <Navbar.Brand as={Link} to="/">
-        <img src="public/cloudsafe.png" alt=""/>
+        <img width="40" // Set the desired width
+          height="40" // Set the desired height
+          style={{ marginRight: '10px' }} src="/cloudsafe.png" alt=""/>
         CloudSafe
       </Navbar.Brand>
       <Nav className="ml-auto"> {/* Align items to the right */}
